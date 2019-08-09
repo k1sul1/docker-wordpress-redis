@@ -1,0 +1,80 @@
+{
+  "name": "k1sul1/docker-wordpress-redis",
+  "description": "WordPress project template with a production ready Docker configuration",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christian Nikkanen",
+      "email": "me@kisu.li"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://wp-languages.github.io"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "version": "5.8.0",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://connect.advancedcustomfields.com/index.php?t=5.8.0&p=pro&a=download&k=YOU_NEED_YOUR_OWN_LICENSE_M8"
+        }
+      }
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:k1sul1/k1-kit.git"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "johnpbloch/wordpress": "*",
+    "composer/installers": "v1.0.12",
+    "vlucas/phpdotenv": "^2.0.1",
+    "oscarotero/env": "^1.0",
+    "koodimonni/composer-dropin-installer": "^1.2",
+    "koodimonni-language/fi": "*",
+    "wp-api/basic-auth": "@dev",
+    "k1sul1/k1kit": "^0.5.1",
+    "k1sul1/wordpress-theme-base": "dev-master",
+    "wpackagist-plugin/autodescription": "^3.2",
+    "wpackagist-plugin/what-the-file": "^1.5",
+    "anttiviljami/wp-libre-form": "dev-master",
+    "wpackagist-plugin/redis-cache": "^1.4"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "psy/psysh": "^0.9.9",
+    "rarst/wps": "1.1"
+  },
+  "extra": {
+    "installer-paths": {
+      "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "wp-content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "wp-content/themes/{$name}": ["type:wordpress-theme"]
+    },
+    "dropin-paths": {
+      "wp-content/mu-plugins/": ["type:wordpress-muplugin"],
+      "wp-content/languages/": ["type:wordpress-language"],
+      "wp-content/languages/plugins/": ["vendor:wordpress-plugin-language"],
+      "wp-content/languages/themes/": ["vendor:wordpress-theme-language"],
+      "wp-content/": [
+        "package:wpackagist-plugin/wp-redis:object-cache.php",
+        "package:wpackagist-plugin/wordpress-mu-domain-mapping:sunrise.php",
+        "type:wordpress-dropin"]
+    },
+    "wordpress-install-dir": "wordpress"
+  },
+  "scripts": {
+
+  }
+}

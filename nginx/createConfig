@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! [ -x "$(command -v envsubst)" ]; then
+  echo 'Error: envsubst not found in path. If you are on MacOS, do `brew install gettext`.' >&2
+  echo 'You can also create the configs manually using a text editor with search-replace.' >&2
+  exit 1
+fi
+
+echo 'This script is broken. Maybe fix it?'
+exit 1
+
+TEMPLATE=${1:-'default/conf/template.default.conf'}
+CONFIG=${TEMPLATE//template./}
+
+
+eval $(source ../.env; echo SITE_URL="$SITE_URL";)
+echo "Creating config with $SITE_URL..."
+
+REPLACE='${SITE_URL}'
+
+envsubst "$REPLACE" < $TEMPLATE > $CONFIG
+
+echo "Done. Converted $TEMPLATE to $CONFIG. $REPLACE"

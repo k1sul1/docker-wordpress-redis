@@ -1,0 +1,13 @@
+vendor
+.env*
+!.env_example
+.idea/
+certs/
+certs-data/
+
+logs
+nginx/*/log
+nginx/**/*.conf
+nginx/**/*.inc
+!nginx/**/*.conf.template
+!nginx/**/*.inc.template

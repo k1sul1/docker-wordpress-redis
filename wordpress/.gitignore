@@ -1,0 +1,13 @@
+vendor
+.env*
+!.env_example
+
+wordpress
+/wp-content/object-cache.php
+/wp-content/plugins/*
+/wp-content/themes/*
+/wp-content/uploads/*
+/wp-content/languages/*
+!/wp-content/themes/spa
+
+

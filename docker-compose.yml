@@ -1,0 +1,64 @@
+version: '3.6'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/default/conf:/etc/nginx/conf.d
+      - ./nginx/common/${ENVIRONMENT}.ssl.inc:/etc/nginx/conf.d/ssl.inc
+      - ./nginx/default/log:/var/log/nginx
+      - ./wordpress:/var/www/wp
+      - ./certs:/etc/letsencrypt
+      - ./certs-data:/data/letsencrypt
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      main:
+        aliases:
+          - ${SITE_URL}
+          # Multisite? Add other domains here, and to nginx config
+          # - ${OTHER_SITE_URL}
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+    volumes:
+      - ./wordpress:/var/www/wp
+      - ./php:/usr/local/etc/php/conf.d
+    depends_on:
+      - mysql
+      - redis
+    restart: always
+    networks:
+      main:
+
+  redis:
+    image: redis:3.2
+    networks:
+      main:
+        aliases:
+          - redis
+
+  mysql:
+    image: mariadb:latest
+    volumes:
+      - db-data:/var/lib/mysql
+    env_file:
+      - .env
+
+    restart: always
+    networks:
+      main:
+
+volumes:
+  db-data:
+
+networks:
+  main:
