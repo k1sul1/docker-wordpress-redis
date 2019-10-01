@@ -44,7 +44,7 @@
     "koodimonni/composer-dropin-installer": "^1.2",
     "koodimonni-language/fi": "*",
     "wp-api/basic-auth": "@dev",
-    "k1sul1/k1kit": "^0.5.1",
+    "k1sul1/k1kit": "dev-master",
     "k1sul1/wordpress-theme-base": "dev-master",
     "wpackagist-plugin/autodescription": "^3.2",
     "wpackagist-plugin/what-the-file": "^1.5",
